@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
-import { PDF } from "../src/index.js";
+import { PPDF } from "../src/index.js";
 
 const execFileAsync = promisify(execFile);
 
@@ -73,7 +73,7 @@ async function main(): Promise<void> {
   await mkdir(outputDir, { recursive: true });
 
   const tempDir = await mkdtemp(path.join(os.tmpdir(), "ppdf-render-"));
-  const pdf = await PDF.open(absoluteInputPath);
+  const pdf = await PPDF.open(absoluteInputPath);
 
   try {
     const [pages, renderedImages, pdfplumberPages] = await Promise.all([

@@ -13,7 +13,7 @@ import type {
   SearchMatch,
   Word,
 } from "./types.js";
-import type { PDF } from "./pdf.js";
+import type { PPDF } from "./pdf.js";
 
 type CropFn = <T extends PdfObject>(objects: T[], bbox: BBox) => T[];
 type Matrix = [number, number, number, number, number, number];
@@ -103,7 +103,7 @@ export class Page {
   protected parsedAnnots?: Annotation[];
 
   constructor(
-    public readonly pdf: PDF,
+    public readonly pdf: PPDF,
     public readonly pageNumber: number,
     protected readonly pageProxy: any,
     public readonly initialDoctop: number,

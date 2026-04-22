@@ -1,6 +1,6 @@
 import { execFileSync } from "node:child_process";
 import { describe, expect, test } from "vitest";
-import { PDF } from "../src/index.js";
+import { PPDF } from "../src/index.js";
 
 type ReferenceChar = {
   text: string;
@@ -57,7 +57,7 @@ describe("character extraction accuracy", () => {
   for (const sample of sampleFiles) {
     test(`matches pdfplumber for ${sample.path.split("/").at(-1)}`, async () => {
       const expectedPages = loadReferencePages(sample.path);
-      const pdf = await PDF.open(sample.path);
+      const pdf = await PPDF.open(sample.path);
       const pages = await pdf.getPages();
 
       expect(pages).toHaveLength(expectedPages.length);

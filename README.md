@@ -14,15 +14,15 @@ It is built for Node.js and focuses on:
 ## Install
 
 ```bash
-yarn add ppdf
+yarn add @chnaaam/ppdf
 ```
 
 ## Quick Start
 
 ```ts
-import { PDF } from "ppdf";
+import { PPDF } from "@chnaaam/ppdf";
 
-const pdf = await PDF.open("./sample.pdf");
+const pdf = await PPDF.open("./sample.pdf");
 const page = await pdf.getPage(1);
 
 const text = await page.extractText();
@@ -46,11 +46,11 @@ await pdf.close();
 You can open a PDF from a file path, `Uint8Array`, or `ArrayBuffer`.
 
 ```ts
-import { PDF } from "ppdf";
+import { PPDF } from "@chnaaam/ppdf";
 
-const fromPath = await PDF.open("./document.pdf");
-const fromBytes = await PDF.open(bytes);
-const fromBuffer = await PDF.open(arrayBuffer);
+const fromPath = await PPDF.open("./document.pdf");
+const fromBytes = await PPDF.open(bytes);
+const fromBuffer = await PPDF.open(arrayBuffer);
 
 await fromPath.close();
 await fromBytes.close();
@@ -60,7 +60,7 @@ await fromBuffer.close();
 Optional open options:
 
 ```ts
-const pdf = await PDF.open("./protected.pdf", {
+const pdf = await PPDF.open("./protected.pdf", {
   password: "secret",
   stopAtErrors: false,
 });
@@ -69,7 +69,7 @@ const pdf = await PDF.open("./protected.pdf", {
 ## Read Pages
 
 ```ts
-const pdf = await PDF.open("./document.pdf");
+const pdf = await PPDF.open("./document.pdf");
 
 console.log(pdf.pageCount);
 
@@ -206,9 +206,9 @@ That means:
 ## End-To-End Example
 
 ```ts
-import { PDF } from "ppdf";
+import { PPDF } from "@chnaaam/ppdf";
 
-const pdf = await PDF.open("./report.pdf");
+const pdf = await PPDF.open("./report.pdf");
 
 for (const page of await pdf.getPages()) {
   const words = await page.extractWords();

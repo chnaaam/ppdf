@@ -1,10 +1,9 @@
-import { readFile } from "node:fs/promises";
 import { Page } from "./page.js";
 import type { BBox, ObjectMap, OpenOptions } from "./types.js";
 
 type PdfJsModule = typeof import("pdfjs-dist/legacy/build/pdf.mjs");
 
-export class PDF {
+export class PPDF {
   private constructor(
     public readonly pdfjs: PdfJsModule,
     private readonly documentProxy: any,
@@ -14,11 +13,11 @@ export class PDF {
 
   private pagesCache?: Page[];
 
-  static async open(source: string | Uint8Array | ArrayBuffer, options: OpenOptions = {}): Promise<PDF> {
+  static async open(source: string | Uint8Array | ArrayBuffer, options: OpenOptions = {}): Promise<PPDF> {
     const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
     const data =
       typeof source === "string"
-        ? new Uint8Array(await readFile(source))
+        ? new Uint8Array(await (await import("node:fs/promises")).readFile(source))
         : source instanceof Uint8Array
           ? source
           : new Uint8Array(source);
@@ -33,7 +32,7 @@ export class PDF {
     });
     const documentProxy = await task.promise;
     const metadata = await documentProxy.getMetadata().catch(() => ({ info: {} }));
-    return new PDF(pdfjs, documentProxy, { ...(metadata.info ?? {}) }, typeof source === "string" ? source : undefined);
+    return new PPDF(pdfjs, documentProxy, { ...(metadata.info ?? {}) }, typeof source === "string" ? source : undefined);
   }
 
   get pageCount(): number {
@@ -97,3 +96,5 @@ export class PDF {
     return [x0, pageHeight - y1, x1, pageHeight - y0];
   }
 }
+
+export const PDF = PPDF;

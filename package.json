@@ -1,6 +1,6 @@
 {
-  "name": "ppdf",
-  "version": "0.1.0",
+  "name": "@chnaaam/ppdf",
+  "version": "0.1.2",
   "description": "A TypeScript PDF object extraction library inspired by pdfplumber.",
   "type": "module",
   "main": "./dist/index.js",
@@ -10,6 +10,9 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     }
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
